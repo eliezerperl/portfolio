@@ -25,7 +25,6 @@ export const GET = async (request) => {
     try {
         await connect();
 
-        console.log('connected')
         const posts = await Post.find(username && {username});
         return new NextResponse(JSON.stringify(posts), { 
             status: 200,
