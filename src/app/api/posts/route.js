@@ -5,8 +5,6 @@ import { limiter } from "../config/limiter";
 
 export const GET = async (request) => {
 
-    const origin = request.headers.get('origin')
-
     const remaining = await limiter.removeTokens(1);
     console.log(remaining)
 
@@ -15,7 +13,6 @@ export const GET = async (request) => {
             status: 429,
             statusText: "Too Many Requests",
             headers: {
-                'Access-Control-Allow-Origin': origin || '*',
                 'Content-Type': 'text/plain'
             }
         })
@@ -28,11 +25,11 @@ export const GET = async (request) => {
     try {
         await connect();
 
+        console.log('connected')
         const posts = await Post.find(username && {username});
         return new NextResponse(JSON.stringify(posts), { 
             status: 200,
             headers: {
-                'Access-Control-Allow-Origin': origin || '*',
                 'Content-Type': 'application/json'
             }
          });
