@@ -35,7 +35,7 @@ const BlogPost = async ({ params }) => {
 					<h1 className={styles.title}>{data.title}</h1>
 					<p className={styles.desc}>{data.desc}</p>
 					<div className={styles.author}>
-						<Image
+						<img
 							src={data.img}
 							alt=""
 							width={40}
@@ -46,7 +46,7 @@ const BlogPost = async ({ params }) => {
 					</div>
 				</div>
 				<div className={styles.imgContainer}>
-					<Image src={data.img} alt="" fill={true} className={styles.img} />
+					<img src={data.img} alt="" fill={true} className={styles.img} />
 				</div>
 			</div>
 			<div className={styles.content}>

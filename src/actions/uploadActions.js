@@ -58,6 +58,16 @@ export async function uploadPhoto(formData){
     }
 }
 
+export async function deletePhoto(public_id){
+
+    try {
+        await cloudinary.v2.uploader.destroy(public_id);
+        return {msg: 'Deleted successfully'};
+    } catch (error) {
+        return { errorMsg: error.message}
+    }
+}
+
 export async function getAllPhotos(){
 
     try {

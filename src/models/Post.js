@@ -15,6 +15,10 @@ const postSchema = new Schema({
         type: String,
         required: true,
     },
+    public_id: {
+        type: String,
+        required: true,
+    },
     content: {
         type: String,
         required: true,
@@ -30,5 +34,3 @@ const postSchema = new Schema({
 const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
 
 export default Post;
-
-// export default mongoose.model('Post', postSchema);

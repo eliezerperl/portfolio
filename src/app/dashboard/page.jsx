@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import LoadingSpinner from "@/components/loadingSpinner/LoadingSpinner";
-import { getAllPhotos, uploadPhoto } from "@/actions/uploadActions";
+import { deletePhoto, uploadPhoto } from "@/actions/uploadActions";
 
 const Dashboard = () => {
 	const session = useSession();
@@ -18,7 +18,7 @@ const Dashboard = () => {
 		`/api/posts?username=${session.data?.user.name}`,
 		fetcher
 	);
-	console.log(data);
+
 	if (session.status === "loading") {
 		return <LoadingSpinner />;
 	}
@@ -43,6 +43,7 @@ const Dashboard = () => {
 		formData.append("image", img);
 		const res = await uploadPhoto(formData);
 
+		debugger;
 		try {
 			await fetch("/api/posts", {
 				method: "POST",
@@ -50,6 +51,7 @@ const Dashboard = () => {
 					title,
 					desc,
 					img: res.secure_url, // res.url is the same
+					public_id: res.public_id,
 					content,
 					username: session.data.user.name,
 				}),
@@ -61,11 +63,13 @@ const Dashboard = () => {
 		}
 	};
 
-	const handleDelete = async (id) => {
+	const handleDelete = async (id, public_id) => {
 		try {
 			await fetch(`/api/posts/${id}`, {
 				method: "DELETE",
 			});
+			deletePhoto(public_id);
+
 			mutate();
 		} catch (error) {}
 	};
@@ -85,7 +89,7 @@ const Dashboard = () => {
 								<h2 className={styles.postTitle}>{item.title}</h2>
 								<span
 									className={styles.delete}
-									onClick={() => handleDelete(item._id)}>
+									onClick={() => handleDelete(item._id, item.public_id)}>
 									X
 								</span>
 							</div>
