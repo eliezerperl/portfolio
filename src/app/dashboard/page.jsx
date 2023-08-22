@@ -43,7 +43,6 @@ const Dashboard = () => {
 		formData.append("image", img);
 		const res = await uploadPhoto(formData);
 
-		debugger;
 		try {
 			await fetch("/api/posts", {
 				method: "POST",
