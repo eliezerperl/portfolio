@@ -1,10 +1,12 @@
+"use client";
+
 import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 async function getData(id) {
-	const res = await fetch(`${process.env.POSTS_DOMAIN}/api/posts/${id}`, {
+	const res = await fetch(`/api/posts/${id}`, {
 		cache: "no-store",
 	});
 
@@ -33,7 +35,7 @@ const BlogPost = async ({ params }) => {
 					<h1 className={styles.title}>{data.title}</h1>
 					<p className={styles.desc}>{data.desc}</p>
 					<div className={styles.author}>
-						<Image
+						<img
 							src={data.img}
 							alt=""
 							width={40}
@@ -44,7 +46,7 @@ const BlogPost = async ({ params }) => {
 					</div>
 				</div>
 				<div className={styles.imgContainer}>
-					<Image src={data.img} alt="" fill={true} className={styles.img} />
+					<img src={data.img} alt="" fill={true} className={styles.img} />
 				</div>
 			</div>
 			<div className={styles.content}>

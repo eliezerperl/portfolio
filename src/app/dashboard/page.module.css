@@ -47,6 +47,10 @@
 	font-weight: bold;
 }
 
+.textArea {
+	resize: none;
+}
+
 .button {
 	padding: 20px;
 	cursor: pointer;

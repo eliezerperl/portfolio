@@ -1,10 +1,12 @@
+"use client";
+
 import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
 async function getData() {
-	const res = await fetch(`${process.env.POSTS_DOMAIN}/api/posts`, {
+	const res = await fetch(`/api/posts`, {
 		cache: "no-store",
 	});
 
@@ -28,7 +30,7 @@ const Blog = async () => {
 							href={`/blog/${item._id}`}
 							className={styles.container}>
 							<div className={styles.imgContainer}>
-								<Image
+								<img
 									src={item.img}
 									alt="Blog"
 									width={400}

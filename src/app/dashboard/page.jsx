@@ -72,7 +72,7 @@ const Dashboard = () => {
 						data?.map((item) => (
 							<div key={item._id} className={styles.post}>
 								<div className={styles.imgContainer}>
-									<Image src={item.img} alt="" width={200} height={100} />
+									<img src={item.img} alt="" width={200} height={100} />
 								</div>
 								<h2 className={styles.postTitle}>{item.title}</h2>
 								<span
@@ -88,7 +88,7 @@ const Dashboard = () => {
 					<h1>Add New Post</h1>
 					<input type="text" placeholder="Title" className={styles.input} />
 					<input type="text" placeholder="Desc" className={styles.input} />
-					<input type="text" placeholder="Image" className={styles.input} />
+					<input type="file" accept="image/*" className={styles.input} />
 					<textarea
 						placeholder="Content"
 						className={styles.textArea}
