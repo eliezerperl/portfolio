@@ -30,7 +30,7 @@ const Blog = async () => {
 							href={`/blog/${item._id}`}
 							className={styles.container}>
 							<div className={styles.imgContainer}>
-								<img
+								<Image
 									src={item.img}
 									alt="Blog"
 									width={400}

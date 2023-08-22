@@ -7,10 +7,10 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import LoadingSpinner from "@/components/loadingSpinner/LoadingSpinner";
+import { getAllPhotos, uploadPhoto } from "@/actions/uploadActions";
 
 const Dashboard = () => {
 	const session = useSession();
-
 	const router = useRouter();
 
 	const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -32,8 +32,16 @@ const Dashboard = () => {
 
 		const title = e.target[0].value;
 		const desc = e.target[1].value;
-		const img = e.target[2].value;
+		const img = e.target[2].files[0];
 		const content = e.target[3].value;
+
+		if (img.size > 1024 * 1024 && img.type.startsWith("image/")) {
+			return new Error("File to big");
+		}
+
+		const formData = new FormData();
+		formData.append("image", img);
+		const res = await uploadPhoto(formData);
 
 		try {
 			await fetch("/api/posts", {
@@ -41,7 +49,7 @@ const Dashboard = () => {
 				body: JSON.stringify({
 					title,
 					desc,
-					img,
+					img: res.secure_url, // res.url is the same
 					content,
 					username: session.data.user.name,
 				}),
